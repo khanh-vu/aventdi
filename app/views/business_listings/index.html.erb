@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Business Listings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Owner</th>
+      <th>Description</th>
+      <th>Address</th>
+      <th>Phone number</th>
+      <th>Active</th>
+      <th>Lat</th>
+      <th>Long</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @business_listings.each do |business_listing| %>
+      <tr>
+        <td><%= business_listing.name %></td>
+        <td><%= business_listing.owner_id %></td>
+        <td><%= business_listing.description %></td>
+        <td><%= business_listing.address %></td>
+        <td><%= business_listing.phone_number %></td>
+        <td><%= business_listing.active %></td>
+        <td><%= business_listing.lat %></td>
+        <td><%= business_listing.long %></td>
+        <td><%= link_to 'Show', business_listing %></td>
+        <td><%= link_to 'Edit', edit_business_listing_path(business_listing) %></td>
+        <td><%= link_to 'Destroy', business_listing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Business Listing', new_business_listing_path %>

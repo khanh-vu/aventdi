@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @business_event.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @business_event.description %>
+</p>
+
+<p>
+  <strong>Business listing:</strong>
+  <%= @business_event.business_listing_id %>
+</p>
+
+<p>
+  <strong>Category code:</strong>
+  <%= @business_event.category_code %>
+</p>
+
+<p>
+  <strong>Activity types:</strong>
+  <%= @business_event.activity_types %>
+</p>
+
+<%= link_to 'Edit', edit_business_event_path(@business_event) %> |
+<%= link_to 'Back', business_events_path %>

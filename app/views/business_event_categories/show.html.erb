@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @business_event_category.code %>
+</p>
+
+<p>
+  <strong>Business event:</strong>
+  <%= @business_event_category.business_event_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @business_event_category.name %>
+</p>
+
+<p>
+  <strong>Parent code:</strong>
+  <%= @business_event_category.parent_code %>
+</p>
+
+<p>
+  <strong>Level:</strong>
+  <%= @business_event_category.level %>
+</p>
+
+<p>
+  <strong>Icon:</strong>
+  <%= @business_event_category.icon %>
+</p>
+
+<p>
+  <strong>Background:</strong>
+  <%= @business_event_category.background %>
+</p>
+
+<%= link_to 'Edit', edit_business_event_category_path(@business_event_category) %> |
+<%= link_to 'Back', business_event_categories_path %>

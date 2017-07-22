@@ -1,0 +1,2 @@
+module BusinessListingsHelper
+end

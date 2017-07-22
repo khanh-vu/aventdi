@@ -1,0 +1,46 @@
+<%= form_with(model: business_listing, local: true) do |form| %>
+  <% if business_listing.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(business_listing.errors.count, "error") %> prohibited this business_listing from being saved:</h2>
+
+      <ul>
+      <% business_listing.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :business_listing_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :owner_id %>
+    <%= form.number_field :owner_id, id: :business_listing_owner_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description, id: :business_listing_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address %>
+    <%= form.text_field :address, id: :business_listing_address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :phone_number %>
+    <%= form.text_field :phone_number, id: :business_listing_phone_number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :active %>
+    <%= form.check_box :active, id: :business_listing_active %>
+  </div>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

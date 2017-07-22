@@ -1,0 +1,37 @@
+<%= form_with(model: business_event_category, local: true, multipart: true) do |form| %>
+  <% if business_event_category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(business_event_category.errors.count, "error") %> prohibited this business_event_category from being saved:</h2>
+
+      <ul>
+      <% business_event_category.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :business_event_category_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :parent_id %>
+    <%= form.text_field :parent_id, id: :business_event_category_parent_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :icon %>
+    <%= form.file_field :icon, id: :business_event_category_icon %>
+  </div>
+
+  <div class="field">
+    <%= form.label :background %>
+    <%= form.file_field :background, id: :business_event_category_background %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

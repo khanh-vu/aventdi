@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Business Events</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Business listing</th>
+      <th>Category code</th>
+      <th>Activity types</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @business_events.each do |business_event| %>
+      <tr>
+        <td><%= business_event.name %></td>
+        <td><%= business_event.description %></td>
+        <td><%= business_event.business_listing_id %></td>
+        <td><%= business_event.category_code %></td>
+        <td><%= business_event.activity_types %></td>
+        <td><%= link_to 'Show', business_event %></td>
+        <td><%= link_to 'Edit', edit_business_event_path(business_event) %></td>
+        <td><%= link_to 'Destroy', business_event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Business Event', new_business_event_path %>

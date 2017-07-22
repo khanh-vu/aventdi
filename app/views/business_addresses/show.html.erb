@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @business_address.name %>
+</p>
+
+<p>
+  <strong>Business listing:</strong>
+  <%= @business_address.business_listing_id %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @business_address.address %>
+</p>
+
+<p>
+  <strong>Lat:</strong>
+  <%= @business_address.lat %>
+</p>
+
+<p>
+  <strong>Lng:</strong>
+  <%= @business_address.lng %>
+</p>
+
+<%= link_to 'Edit', edit_business_address_path(@business_address) %> |
+<%= link_to 'Back', business_addresses_path %>
