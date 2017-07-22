@@ -8,9 +8,13 @@ Rails.application.routes.draw do
 
   devise_for :users, path: 'users'
   # token auth routes available at /api/v1/auth
-  namespace :api do
+  namespace :api, defaults: {format: :json} do
     scope :v1 do
       mount_devise_token_auth_for 'User', at: 'auth'
+      resources :business_event_categories, path: 'category', only: [:index, :show] do
+        resources :business_events, path: 'event', only: [:index, :show]
+      end
+      resources :business_events, path: 'event', only: [:index, :show]
     end
   end
 

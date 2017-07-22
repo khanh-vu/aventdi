@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20170721061656) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
@@ -33,8 +34,8 @@ ActiveRecord::Schema.define(version: 20170721061656) do
     t.string "name"
     t.integer "business_listing_id"
     t.string "address"
-    t.string "lat"
-    t.string "lng"
+    t.string "latitude"
+    t.string "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["business_listing_id"], name: "index_business_addresses_on_business_listing_id"
@@ -69,8 +70,8 @@ ActiveRecord::Schema.define(version: 20170721061656) do
     t.string "address"
     t.string "phone_number"
     t.integer "active"
-    t.string "lat"
-    t.string "long"
+    t.string "latitude"
+    t.string "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

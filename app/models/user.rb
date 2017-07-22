@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   include DeviseTokenAuth::Concerns::User
 
-  validates :email, :name, presence: true
+  validates :email, presence: true
   validates :password, :password_confirmation, presence: true, :on => :create
   rails_admin do
     edit do
