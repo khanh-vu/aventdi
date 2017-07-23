@@ -54,6 +54,9 @@ gem 'twitter-bootstrap-rails'
 gem 'devise-bootstrap-views'
 gem "gmap_coordinates_picker"
 
+gem 'devise-bootstrapped', '~> 0.1.1'
+gem 'bootstrap-sass'
+
 gem "rails_admin_map_field", :git => "https://github.com/beyondthestory/rails_admin_map_field.git"
 
 gem 'geocoder'
