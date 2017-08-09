@@ -12,6 +12,8 @@ module Api
 
     # GET api/v1/business_event_categories/1
     # GET api/v1/business_event_categories/1.json
+    api :GET, 'api/v1/business_event_categories/:id'
+    param :id, :number
     def show
       @business_event_category
       render json: @business_event_category, status: 200

@@ -1,12 +1,15 @@
 class BusinessAddress < ApplicationRecord
   belongs_to :business_listing, :inverse_of => :business_addresses
 
+  has_many :business_event_addresses, :foreign_key => 'address_id'
+  has_many :business_events, :through => :business_event_addresses, :foreign_key => 'address_id'
+
   geocoded_by :address   # can also be an IP address
   after_validation :geocode          # auto-fetch coordinates
 
   rails_admin do
     edit do
-      exclude_fields :latitude, :longitude
+      include_fields :name, :address
     end
     show do
       include_all_fields

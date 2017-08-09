@@ -2,22 +2,22 @@ module Api
   class BusinessEventsController < ApplicationController
     before_action :set_business_event, only: [:show, :edit, :update, :destroy]
 
-    # GET /api/v1/business_events
-    # GET /api/v1/business_events.json
+    # GET /api/v1/event
+    # GET /api/v1/event.json
     def index
       if params[:business_event_category_id].present?
         @business_events = BusinessEventCategory.find(params[:business_event_category_id]).business_events
       elsif
         @business_events = BusinessEvent.all
       end
-      render json: @business_events, status: 200
+      render json: @business_events, include: 'business_event_category, business_listing.name, business_addresses', fields: { event_activities: ['type'] }
+        # render json: @business_events.to_json(include: [:business_listing, :business_event_category, :business_addresses]), status: 200
     end
 
-    # GET /api/v1/business_events/1
-    # GET /api/v1/business_events/1.json
+    # GET /api/v1/event/1
+    # GET /api/v1/event/1.json
     def show
-      @business_event
-      render json: @business_event, status: 200
+      render json: @business_event.to_json(include: [:business_listing, :business_event_category, :business_addresses]), status: 200
     end
 
     private

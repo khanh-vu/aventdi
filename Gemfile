@@ -58,9 +58,12 @@ gem 'devise-bootstrapped', '~> 0.1.1'
 gem 'bootstrap-sass'
 
 gem "rails_admin_map_field", :git => "https://github.com/beyondthestory/rails_admin_map_field.git"
+gem 'rails_admin_rollincode', '~> 1.0'
 
 gem 'geocoder'
 gem 'gmaps4rails'
+gem 'apipie-rails'
+gem 'therubyracer', :platforms => :ruby
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

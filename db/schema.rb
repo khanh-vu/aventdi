@@ -41,6 +41,15 @@ ActiveRecord::Schema.define(version: 20170721061656) do
     t.index ["business_listing_id"], name: "index_business_addresses_on_business_listing_id"
   end
 
+  create_table "business_event_addresses", force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.integer "address_id", null: false
+    t.index ["address_id"], name: "business_event_addresses_address_id_index"
+    t.index ["event_id"], name: "business_event_addresses_event_id_index"
+    t.index ["id"], name: "business_event_addresses_id_index"
+    t.index ["id"], name: "sqlite_autoindex_business_event_addresses_1", unique: true
+  end
+
   create_table "business_event_categories", force: :cascade do |t|
     t.string "name"
     t.integer "parent_id"
@@ -48,19 +57,21 @@ ActiveRecord::Schema.define(version: 20170721061656) do
     t.string "background"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "marker"
     t.index ["parent_id"], name: "business_event_categories_parent_id_index"
   end
 
   create_table "business_events", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.string "activity_types"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "business_listings_id"
-    t.integer "business_event_categories_id"
-    t.index ["business_event_categories_id"], name: "index_business_events_on_business_event_categories_id"
-    t.index ["business_listings_id"], name: "index_business_events_on_business_listings_id"
+    t.integer "business_listing_id"
+    t.integer "business_event_category_id"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.index ["business_event_category_id"], name: "index_business_events_on_business_event_categories_id"
+    t.index ["business_listing_id"], name: "index_business_events_on_business_listings_id"
   end
 
   create_table "business_listings", force: :cascade do |t|
@@ -74,6 +85,15 @@ ActiveRecord::Schema.define(version: 20170721061656) do
     t.string "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "event_activities", force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.string "activity_type", null: false
+    t.text "content"
+    t.integer "points", default: 0, null: false
+    t.index ["event_id"], name: "event_activities_event_id_index"
+    t.index ["id"], name: "sqlite_autoindex_event_activities_1", unique: true
   end
 
   create_table "users", force: :cascade do |t|

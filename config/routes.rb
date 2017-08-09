@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  apipie
   resources :business_addresses
   devise_for :admins, path: 'admin', controller: {sessions: 'users/sessions'}
   resources :business_event_categories
@@ -6,7 +7,6 @@ Rails.application.routes.draw do
   resources :business_listings
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
-  devise_for :users, path: 'users'
   # token auth routes available at /api/v1/auth
   namespace :api, defaults: {format: :json} do
     scope :v1 do
