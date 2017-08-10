@@ -16,7 +16,11 @@ Rails.application.routes.draw do
       resources :business_event_categories, path: 'category', only: [:index, :show] do
         resources :business_events, path: 'event', only: [:index, :show]
       end
-      resources :business_events, path: 'event', only: [:index, :show]
+      resources :business_events, path: 'event', only: [:index, :show] do
+        collection do
+          get :location_list
+        end
+      end
     end
   end
 

@@ -20,6 +20,18 @@ module Api
       render json: @business_event.to_json(include: [:business_listing, :business_event_category, :business_addresses]), status: 200
     end
 
+    # GET /api/v1/event/locations
+    # GET /api/v1/event/locations.json
+    def location_list
+      @business_events = BusinessEvent.select(:id, :name, :business_event_category_id)
+      render json: @business_events.to_json(
+                :methods => [:activity_types, :marker],
+                include: {
+                    business_addresses: {only: [:name, :address, :latitude, :longitude]}
+                }),
+             status: 200
+    end
+
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_business_event

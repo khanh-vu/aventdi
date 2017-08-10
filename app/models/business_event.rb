@@ -5,10 +5,13 @@ class BusinessEvent < ApplicationRecord
   has_many :business_event_addresses, :foreign_key => 'event_id'
   has_many :business_addresses, :through => :business_event_addresses, :foreign_key => 'event_id'
 
-  has_many :event_activities, :foreign_key => 'event_id'
+  has_many :event_activities, :foreign_key => 'event_id', :inverse_of => :business_event
   accepts_nested_attributes_for :event_activities, :allow_destroy => true
 
-  delegate :type, :to => :event_activities, :prefix => true, :allow_nil => true
+  delegate :activity_type, :to => :event_activities, :allow_nil => true
+
+  attr_accessor :activity_types
+  attr_reader :marker
 
   validates :business_listing, :presence => true
   validates :business_event_category, :presence => true
@@ -20,7 +23,7 @@ class BusinessEvent < ApplicationRecord
     end
     edit do
       include_fields :name, :description, :business_event_category,
-                     :business_listing, :business_addresses, :start_time, :end_time
+                     :business_listing, :business_addresses, :event_activities, :start_time, :end_time
       exclude_fields :business_event_addresses
       field :business_addresses do
         associated_collection_cache_all true  # REQUIRED if you want to SORT the list as below
@@ -51,5 +54,13 @@ class BusinessEvent < ApplicationRecord
 
   def category
     business_event_category
+  end
+
+  def activity_types
+    self.event_activities.pluck(:activity_type)
+  end
+
+  def marker
+    self.business_event_category.marker.small
   end
 end
