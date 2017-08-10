@@ -10,8 +10,8 @@ module Api
       elsif
         @business_events = BusinessEvent.all
       end
-      render json: @business_events, include: 'business_event_category, business_listing.name, business_addresses', fields: { event_activities: ['type'] }
-        # render json: @business_events.to_json(include: [:business_listing, :business_event_category, :business_addresses]), status: 200
+      # render json: @business_events, include: 'business_event_category, business_listing.name, business_addresses', fields: { event_activities: ['type'] }
+        render json: @business_events.to_json(include: [:business_listing, :business_event_category, :business_addresses]), status: 200
     end
 
     # GET /api/v1/event/1
