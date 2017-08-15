@@ -17,12 +17,17 @@ class BusinessEvent < ApplicationRecord
   validates :business_event_category, :presence => true
   validates :name, :presence => true
 
+  mount_uploader :image, ImageUploader
+
   rails_admin do
     create do
+      include_fields :name, :description, :image, :business_event_category,
+                     :business_listing, :event_activities, :start_time, :end_time
+
       exclude_fields :business_event_addresses, :business_addresses
     end
     edit do
-      include_fields :name, :description, :business_event_category,
+      include_fields :name, :description, :image, :business_event_category,
                      :business_listing, :business_addresses, :event_activities, :start_time, :end_time
       exclude_fields :business_event_addresses
       field :business_addresses do
@@ -40,9 +45,15 @@ class BusinessEvent < ApplicationRecord
       end
     end
     show do
+      include_fields :name, :description, :image, :business_event_category,
+                     :business_listing, :business_addresses, :event_activities, :start_time, :end_time
+
       exclude_fields :business_event_addresses
     end
     list do
+      include_fields :name, :description, :image, :business_event_category,
+                     :business_listing, :business_addresses, :event_activities, :start_time, :end_time
+
       exclude_fields :business_event_addresses, :created_at, :updated_at
     end
   end
@@ -61,6 +72,6 @@ class BusinessEvent < ApplicationRecord
   end
 
   def marker
-    self.business_event_category.marker.small
+    self.business_event_category.marker.large
   end
 end

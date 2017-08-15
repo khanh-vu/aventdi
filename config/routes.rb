@@ -10,15 +10,13 @@ Rails.application.routes.draw do
   # token auth routes available at /api/v1/auth
   namespace :api, defaults: {format: :json} do
     scope :v1 do
-      mount_devise_token_auth_for 'User', at: 'auth', controllers: {
-          omniauth_callbacks:  'users/omniauth_callbacks'
-      }
+      mount_devise_token_auth_for 'User', at: 'auth'
       resources :business_event_categories, path: 'category', only: [:index, :show] do
         resources :business_events, path: 'event', only: [:index, :show]
       end
       resources :business_events, path: 'event', only: [:index, :show] do
         collection do
-          get :location_list
+          get :location_list, path: 'locations'
         end
       end
     end

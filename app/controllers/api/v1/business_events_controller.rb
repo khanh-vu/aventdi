@@ -8,40 +8,40 @@ module Api
       if params[:business_event_category_id].present?
         @business_events = BusinessEventCategory.find(params[:business_event_category_id]).business_events
       elsif
-        @business_events = BusinessEvent.all
+      @business_events = BusinessEvent.all
       end
       # render json: @business_events, include: 'business_event_category, business_listing.name, business_addresses', fields: { event_activities: ['type'] }
-        render json: @business_events.to_json(include: [:business_listing, :business_event_category, :business_addresses]), status: 200
+      render json: @business_events.to_json(include: [:business_listing, :business_event_category, :business_addresses]), status: 200
     end
 
     # GET /api/v1/event/1
     # GET /api/v1/event/1.json
     def show
-      render json: @business_event.to_json(include: [:business_listing, :business_event_category, :business_addresses]), status: 200
+      render json: @business_event.to_json(include: [:event_activities, :business_listing, :business_event_category, :business_addresses]), status: 200
     end
 
     # GET /api/v1/event/locations
     # GET /api/v1/event/locations.json
     def location_list
-      @business_events = BusinessEvent.select(:id, :name, :business_event_category_id)
+      @business_events = BusinessEvent.select(:id, :name, :image, :business_event_category_id)
       render json: @business_events.to_json(
-                :methods => [:activity_types, :marker],
-                include: {
-                    business_addresses: {only: [:name, :address, :latitude, :longitude]}
-                }),
+          :methods => [:activity_types, :marker],
+          include: {
+              business_addresses: {only: [:id, :name, :address, :latitude, :longitude]},
+              event_activities: {except: []}
+          }),
              status: 200
     end
 
     private
-      # Use callbacks to share common setup or constraints between actions.
-      def set_business_event
-        @business_event = BusinessEvent.find(params[:id])
-      end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_business_event
+      @business_event = BusinessEvent.find(params[:id])
+    end
 
-      # Never trust parameters from the scary internet, only allow the white list through.
-      def business_event_params
-        params.require(:business_event).permit(:name, :description, :business_listing_id, :category_code, :activity_types)
-      end
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def business_event_params
+      params.require(:business_event).permit(:name, :description, :business_listing_id, :category_code, :activity_types)
+    end
   end
 end
-
