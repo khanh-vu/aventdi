@@ -7,6 +7,8 @@ module Api
     def index
       if params[:business_event_category_id].present?
         @business_events = BusinessEventCategory.find(params[:business_event_category_id]).business_events
+        render json: @business_events.collect{|event|event.business_addresses}.first.to_json(include: {business_events: {only:[:name, :image], include: [:event_activities]}})
+        return
       elsif
       @business_events = BusinessEvent.all
       end
