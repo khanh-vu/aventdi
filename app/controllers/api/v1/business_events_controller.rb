@@ -17,7 +17,13 @@ module Api
     # GET /api/v1/event/1
     # GET /api/v1/event/1.json
     def show
-      render json: @business_event.to_json(include: [:event_activities, :business_listing, :business_event_category, :business_addresses]), status: 200
+      render json: @business_event.to_json(
+          :methods => [:activity_types],
+          include: {
+              business_addresses: {only: [:id, :name, :address, :latitude, :longitude]},
+              event_activities: {except: []}
+          }),
+             status: 200
     end
 
     # GET /api/v1/event/locations
@@ -30,7 +36,7 @@ module Api
               business_addresses: {only: [:id, :name, :address, :latitude, :longitude]},
               event_activities: {except: []}
           }),
-             status: 200
+          status: 200
     end
 
     private

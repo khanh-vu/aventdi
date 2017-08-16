@@ -18,17 +18,25 @@ class BusinessEvent < ApplicationRecord
   validates :name, :presence => true
 
   mount_uploader :image, ImageUploader
+  mount_uploaders :banners, BannerUploader
+  serialize :banners, JSON # If you use SQLite, add this line.
 
   rails_admin do
     create do
-      include_fields :name, :description, :image, :business_event_category,
+      include_fields :name, :description, :image, :banners, :business_event_category,
                      :business_listing, :event_activities, :start_time, :end_time
-
+      field :banners do
+        partial "business_event/banners"
+      end
       exclude_fields :business_event_addresses, :business_addresses
+
     end
     edit do
-      include_fields :name, :description, :image, :business_event_category,
+      include_fields :name, :description, :image, :banners, :business_event_category,
                      :business_listing, :business_addresses, :event_activities, :start_time, :end_time
+      field :banners do
+        partial "business_event/banners"
+      end
       exclude_fields :business_event_addresses
       field :business_addresses do
         associated_collection_cache_all true  # REQUIRED if you want to SORT the list as below
@@ -47,7 +55,13 @@ class BusinessEvent < ApplicationRecord
     show do
       include_fields :name, :description, :image, :business_event_category,
                      :business_listing, :business_addresses, :event_activities, :start_time, :end_time
-
+      # field :banners do
+      #   pretty_value do
+      #     bindings[:view].render(
+      #         partial: "business_event/show_banners", locals:  {field: self, form: bindings[:form], object: bindings[:object]}
+      #     )
+      #   end
+      # end
       exclude_fields :business_event_addresses
     end
     list do
