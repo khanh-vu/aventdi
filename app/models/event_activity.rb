@@ -4,4 +4,8 @@ class EventActivity < ApplicationRecord
   def activity_type_enum
     ['Capture invoice', 'Check-in', 'Tracking']
   end
+
+  rails_admin do
+    visible false
+  end
 end

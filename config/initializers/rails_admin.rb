@@ -36,7 +36,7 @@ RailsAdmin.config do |config|
     # history_index
     # history_show
   end
-  config.excluded_models = ["BusinessEventAddress", "EventActivity", "EventBanner"]
+  config.excluded_models = ["EventBanner"]
 end
 
 RailsAdmin.config do |config|
