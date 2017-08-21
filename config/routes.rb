@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :business_event_addresses
   apipie
   resources :business_addresses
   devise_for :admins, path: 'admin', controller: {sessions: 'users/sessions'}
@@ -12,7 +13,7 @@ Rails.application.routes.draw do
     scope :v1 do
       mount_devise_token_auth_for 'User', at: 'auth'
       resources :business_event_categories, path: 'category', only: [:index, :show] do
-        resources :business_events, path: 'event', only: [:index, :show]
+        resources :business_event_addresses, path: 'event_address', only: [:index, :show]
       end
       resources :business_events, path: 'event', only: [:index, :show] do
         collection do

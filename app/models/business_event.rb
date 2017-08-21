@@ -2,13 +2,13 @@ class BusinessEvent < ApplicationRecord
   belongs_to :business_listing
   belongs_to :business_event_category, :inverse_of => :business_events
 
-  has_many :business_event_addresses, :foreign_key => 'event_id'
+  has_many :business_event_addresses
   has_many :business_addresses, :through => :business_event_addresses, :foreign_key => 'event_id'
 
   has_many :event_activities, :foreign_key => 'event_id', :inverse_of => :business_event
   accepts_nested_attributes_for :event_activities, :allow_destroy => true
 
-  delegate :activity_type, :to => :event_activities, :allow_nil => true
+  # delegate :activity_type, :to => :event_activities, :allow_nil => true
 
   attr_accessor :activity_types
   attr_reader :marker
@@ -24,18 +24,24 @@ class BusinessEvent < ApplicationRecord
   rails_admin do
     create do
       include_fields :name, :description, :image, :banners, :business_event_category,
-                     :business_listing, :event_activities, :start_time, :end_time
+            :business_listing, :is_featured, :event_activities,  :start_time, :end_time
       field :banners do
         partial "business_event/banners"
+      end
+      field :is_featured do
+        partial "business_event/featured"
       end
       exclude_fields :business_event_addresses, :business_addresses
 
     end
     edit do
       include_fields :name, :description, :image, :banners, :business_event_category,
-                     :business_listing, :business_addresses, :event_activities, :start_time, :end_time
+                     :business_listing, :is_featured, :business_addresses, :event_activities, :start_time, :end_time
       field :banners do
         partial "business_event/banners"
+      end
+      field :is_featured do
+        partial "business_event/featured"
       end
       exclude_fields :business_event_addresses
       field :business_addresses do
@@ -54,7 +60,7 @@ class BusinessEvent < ApplicationRecord
     end
     show do
       include_fields :name, :description, :image, :business_event_category,
-                     :business_listing, :business_addresses, :event_activities, :start_time, :end_time
+                     :business_listing, :is_featured, :business_addresses, :event_activities, :start_time, :end_time
       # field :banners do
       #   pretty_value do
       #     bindings[:view].render(
@@ -66,7 +72,7 @@ class BusinessEvent < ApplicationRecord
     end
     list do
       include_fields :name, :description, :image, :business_event_category,
-                     :business_listing, :business_addresses, :event_activities, :start_time, :end_time
+                     :business_listing, :is_featured, :business_addresses, :event_activities, :start_time, :end_time
 
       exclude_fields :business_event_addresses, :created_at, :updated_at
     end
