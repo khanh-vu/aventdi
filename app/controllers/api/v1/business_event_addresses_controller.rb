@@ -7,7 +7,7 @@ module Api
     def index
       if params[:business_event_category_id].present?
         @business_event_addresses = BusinessEventAddress.includes(:business_event).where(:business_events => {:business_event_category => params[:business_event_category_id]})
-        render json: @business_event_addresses.to_json(include: {business_address: {only: [:name, :address, :latitude, :longitude]}, business_event: {only:[:name, :image], include: [:event_activities]}})
+        render json: @business_event_addresses.to_json(only: [:id], include: {business_address: {only: [:id, :name, :address, :latitude, :longitude]}, business_event: {only:[:id, :name, :image], include: [:event_activities]}})
         return
       elsif
       @business_event_addresses = BusinessEvent.all
