@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :product_categories
+  resources :products
   resources :business_event_addresses
   apipie
   resources :business_addresses
@@ -15,11 +17,17 @@ Rails.application.routes.draw do
       resources :business_event_categories, path: 'category', only: [:index, :show] do
         resources :business_event_addresses, path: 'event_address', only: [:index, :show]
       end
+      resources :business_event_addresses, path: 'event_address', only: [:index, :show]
       resources :business_events, path: 'event', only: [:index, :show] do
         collection do
           get :location_list, path: 'locations'
         end
       end
+      # marketplace
+      resources :product_categories, path: 'product_category', only: [:index, :show] do
+        resources :products, path: 'product', only: [:index, :show]
+      end
+      resources :products, path: 'product', only: [:index, :show]
     end
   end
 
