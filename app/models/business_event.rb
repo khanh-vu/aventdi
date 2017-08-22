@@ -92,6 +92,6 @@ class BusinessEvent < ApplicationRecord
   end
 
   def marker
-    self.business_event_category.marker.large
+    self.business_event_category.marker.medium
   end
 end

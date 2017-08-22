@@ -4,5 +4,11 @@ class Product < ApplicationRecord
 
   rails_admin do
     navigation_label 'Marketplace'
+    edit do
+      include_all_fields
+      field :is_featured do
+        partial "business_event/featured"
+      end
+    end
   end
 end

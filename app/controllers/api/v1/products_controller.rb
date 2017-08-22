@@ -6,12 +6,14 @@ module Api
     # GET /products.json
     def index
       if params[:product_category_id].present?
-        @products = ProductCategory.find(params[:product_category_id]).products
+        @featured_products = ProductCategory.includes(:products).where(:id => params[:product_category_id], :products => {:is_featured => 1})
+        @products = ProductCategory.includes(:products).where(:id => params[:product_category_id], :products => {:is_featured => 0})
       elsif
-      @products = Product.all
+        @featured_products = Product.where(:is_featured => 1)
+        @products = Product.where(:is_featured => 0)
       end
       # render json: @business_events, include: 'business_event_category, business_listing.name, business_addresses', fields: { event_activities: ['type'] }
-      render json: @products, status: 200
+      render json: {:featured => @featured_products, :products => @products}, status: 200
     end
 
     # GET /products/1
